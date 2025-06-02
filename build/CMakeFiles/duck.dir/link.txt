@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\duck.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\duck.dir/objects.a @CMakeFiles\duck.dir\objects1.rsp
+C:\msys64\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\duck.dir/objects.a -Wl,--no-whole-archive -o duck.exe -Wl,--out-implib,libduck.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\duck.dir\linkLibs.rsp

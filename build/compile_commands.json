@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/IT3070_Project/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -D_CRT_SECURE_NO_WARNINGS  -g -o CMakeFiles\\countdown.dir\\countdown.cpp.obj -c D:\\IT3070_Project\\Process\\countdown.cpp",
+  "file": "D:/IT3070_Project/Process/countdown.cpp",
+  "output": "CMakeFiles/countdown.dir/countdown.cpp.obj"
+},
+{
+  "directory": "D:/IT3070_Project/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -D_CRT_SECURE_NO_WARNINGS  -g -o CMakeFiles\\duck.dir\\duck.cpp.obj -c D:\\IT3070_Project\\Process\\duck.cpp",
+  "file": "D:/IT3070_Project/Process/duck.cpp",
+  "output": "CMakeFiles/duck.dir/duck.cpp.obj"
+},
+{
+  "directory": "D:/IT3070_Project/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -D_CRT_SECURE_NO_WARNINGS  -g -o CMakeFiles\\heart.dir\\heart.cpp.obj -c D:\\IT3070_Project\\Process\\heart.cpp",
+  "file": "D:/IT3070_Project/Process/heart.cpp",
+  "output": "CMakeFiles/heart.dir/heart.cpp.obj"
+}
+]

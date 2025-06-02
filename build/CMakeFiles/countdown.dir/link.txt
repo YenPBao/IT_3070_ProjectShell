@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\countdown.dir/objects.a
+C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\countdown.dir/objects.a @CMakeFiles\countdown.dir\objects1.rsp
+C:\msys64\mingw64\bin\g++.exe -g /SUBSYSTEM:WINDOWS -Wl,--whole-archive CMakeFiles\countdown.dir/objects.a -Wl,--no-whole-archive -o countdown.exe -Wl,--out-implib,libcountdown.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\countdown.dir\linkLibs.rsp
