@@ -31,6 +31,12 @@
 				"file" : 0,
 				"line" : 11,
 				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 0
 			}
 		]
 	},
@@ -54,9 +60,9 @@
 			"destination" : "Process",
 			"paths" : 
 			[
-				"duck.exe"
+				"dance.exe"
 			],
-			"targetId" : "duck::@6890427a1f51a3e7e1df",
+			"targetId" : "dance::@6890427a1f51a3e7e1df",
 			"targetIndex" : 1,
 			"type" : "target"
 		},
@@ -66,10 +72,22 @@
 			"destination" : "Process",
 			"paths" : 
 			[
+				"duck.exe"
+			],
+			"targetId" : "duck::@6890427a1f51a3e7e1df",
+			"targetIndex" : 2,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "Process",
+			"paths" : 
+			[
 				"heart.exe"
 			],
 			"targetId" : "heart::@6890427a1f51a3e7e1df",
-			"targetIndex" : 2,
+			"targetIndex" : 3,
 			"type" : "target"
 		}
 	],

@@ -42,7 +42,7 @@ void showHelp(const std::vector<std::string> &args)
     cout << setw(20) << "move_file" << ": Move a file" << endl;
     cout << setw(20) << "run" << ": Run a script file" << endl;
 
-    cout<<setw(20)<<"Process Manager"<<'\nn';
+    cout<<setw(20)<<"Process Manager"<<'\n';
     cout << setw(20) << "run_fg" << ": Run a process in foreground" << endl;
     cout << setw(20) << "run_bg" << ": Run a process in background" << endl;
     cout << setw(20) << "list" << ": List running processes" << endl;
@@ -50,7 +50,7 @@ void showHelp(const std::vector<std::string> &args)
     cout << setw(20) << "kill" << ": Terminate a process" << endl;
     cout << setw(20) << "countdown" << ": Start countdown animation" << endl;
 
-    cout<<setw(20)<<"Enviroment Path Manager" <<'\n';
+    cout << setw(20)<<"Enviroment Path Manager" <<'\n';
     cout << setw(20) << "path" << ": List environment PATH" << endl;
     cout << setw(20) << "add_path" << ": Add to PATH environment" << endl;
     cout << setw(20) << "remove_path" << ": Remove from PATH environment" << endl;

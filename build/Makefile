@@ -162,6 +162,19 @@ countdown/fast:
 .PHONY : countdown/fast
 
 #=============================================================================
+# Target rules for targets named dance
+
+# Build rule for target.
+dance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 dance
+.PHONY : dance
+
+# fast build rule for target.
+dance/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/build
+.PHONY : dance/fast
+
+#=============================================================================
 # Target rules for targets named duck
 
 # Build rule for target.
@@ -210,6 +223,30 @@ countdown.s: countdown.cpp.s
 countdown.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\countdown.dir\build.make CMakeFiles/countdown.dir/countdown.cpp.s
 .PHONY : countdown.cpp.s
+
+dance.obj: dance.cpp.obj
+.PHONY : dance.obj
+
+# target to build an object file
+dance.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/dance.cpp.obj
+.PHONY : dance.cpp.obj
+
+dance.i: dance.cpp.i
+.PHONY : dance.i
+
+# target to preprocess a source file
+dance.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/dance.cpp.i
+.PHONY : dance.cpp.i
+
+dance.s: dance.cpp.s
+.PHONY : dance.s
+
+# target to generate assembly for a file
+dance.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/dance.cpp.s
+.PHONY : dance.cpp.s
 
 duck.obj: duck.cpp.obj
 .PHONY : duck.obj
@@ -271,11 +308,15 @@ help:
 	@echo ... list_install_components
 	@echo ... rebuild_cache
 	@echo ... countdown
+	@echo ... dance
 	@echo ... duck
 	@echo ... heart
 	@echo ... countdown.obj
 	@echo ... countdown.i
 	@echo ... countdown.s
+	@echo ... dance.obj
+	@echo ... dance.i
+	@echo ... dance.s
 	@echo ... duck.obj
 	@echo ... duck.i
 	@echo ... duck.s

@@ -7,6 +7,12 @@
 },
 {
   "directory": "D:/IT3070_Project/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -D_CRT_SECURE_NO_WARNINGS  -g -o CMakeFiles\\dance.dir\\dance.cpp.obj -c D:\\IT3070_Project\\Process\\dance.cpp",
+  "file": "D:/IT3070_Project/Process/dance.cpp",
+  "output": "CMakeFiles/dance.dir/dance.cpp.obj"
+},
+{
+  "directory": "D:/IT3070_Project/build",
   "command": "C:\\msys64\\mingw64\\bin\\g++.exe -D_CRT_SECURE_NO_WARNINGS  -g -o CMakeFiles\\duck.dir\\duck.cpp.obj -c D:\\IT3070_Project\\Process\\duck.cpp",
   "file": "D:/IT3070_Project/Process/duck.cpp",
   "output": "CMakeFiles/duck.dir/duck.cpp.obj"

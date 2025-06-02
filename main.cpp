@@ -246,7 +246,7 @@ void executeCommand(const string &command, const vector<string> &args)
         }
         else
         {
-            cout << "Usage: set_env <variable> = <value>" << endl;
+            cout << "Usage: create_env <variable> = <value>" << endl;
         }
     }
     else if (command == "kill_env")
@@ -254,7 +254,7 @@ void executeCommand(const string &command, const vector<string> &args)
         if (!args.empty())
             environmentManager.unsetEnv(args[0]);
         else
-            cout << "Usage: unset_env <variable>" << endl;
+            cout << "Usage: kill_env <variable>" << endl;
     }
     else if (command == "print_env")
     {

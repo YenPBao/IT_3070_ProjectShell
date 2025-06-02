@@ -14,10 +14,6 @@ using namespace std;
 class EnvironmentManager
 {
 public:
-    // Các lệnh hỗ trợ
-    inline static const unordered_set<string> supportedCommands = {
-        "add_path", "remove_path", "print_env", "set_env", "kill_env", "list_env"};
-
     // Hàm lấy danh sách các lệnh hỗ trợ
     const unordered_set<string> &getSupportedCommands()
     {
@@ -79,7 +75,7 @@ public:
         }
         else
         {
-            cout << var << " is not set." << endl;
+            cout << var << " is not create." << endl;
         }
     }
 
@@ -94,7 +90,7 @@ public:
     void unsetEnv(const string &var)
     {
         _putenv_s(var.c_str(), "");
-        cout << "Unset variable " << var << endl;
+        cout << "Kill variable " << var << endl;
     }
 
     // Hàm để kiểm tra xem một đường dẫn có trong PATH hay không

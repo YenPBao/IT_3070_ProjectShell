@@ -63,12 +63,14 @@ CMAKE_BINARY_DIR = D:\IT3070_Project\build
 
 # The main recursive "all" target.
 all: CMakeFiles/countdown.dir/all
+all: CMakeFiles/dance.dir/all
 all: CMakeFiles/duck.dir/all
 all: CMakeFiles/heart.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/countdown.dir/codegen
+codegen: CMakeFiles/dance.dir/codegen
 codegen: CMakeFiles/duck.dir/codegen
 codegen: CMakeFiles/heart.dir/codegen
 .PHONY : codegen
@@ -79,6 +81,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/countdown.dir/clean
+clean: CMakeFiles/dance.dir/clean
 clean: CMakeFiles/duck.dir/clean
 clean: CMakeFiles/heart.dir/clean
 .PHONY : clean
@@ -116,13 +119,45 @@ CMakeFiles/countdown.dir/clean:
 .PHONY : CMakeFiles/countdown.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/dance.dir
+
+# All Build rule for target.
+CMakeFiles/dance.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=3,4 "Built target dance"
+.PHONY : CMakeFiles/dance.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/dance.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\IT3070_Project\build\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/dance.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\IT3070_Project\build\CMakeFiles 0
+.PHONY : CMakeFiles/dance.dir/rule
+
+# Convenience name for target.
+dance: CMakeFiles/dance.dir/rule
+.PHONY : dance
+
+# codegen rule for target.
+CMakeFiles/dance.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=3,4 "Finished codegen for target dance"
+.PHONY : CMakeFiles/dance.dir/codegen
+
+# clean rule for target.
+CMakeFiles/dance.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\dance.dir\build.make CMakeFiles/dance.dir/clean
+.PHONY : CMakeFiles/dance.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/duck.dir
 
 # All Build rule for target.
 CMakeFiles/duck.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\duck.dir\build.make CMakeFiles/duck.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\duck.dir\build.make CMakeFiles/duck.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=3,4 "Built target duck"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=5,6 "Built target duck"
 .PHONY : CMakeFiles/duck.dir/all
 
 # Build rule for subdir invocation for target.
@@ -139,7 +174,7 @@ duck: CMakeFiles/duck.dir/rule
 # codegen rule for target.
 CMakeFiles/duck.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\duck.dir\build.make CMakeFiles/duck.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=3,4 "Finished codegen for target duck"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=5,6 "Finished codegen for target duck"
 .PHONY : CMakeFiles/duck.dir/codegen
 
 # clean rule for target.
@@ -154,7 +189,7 @@ CMakeFiles/duck.dir/clean:
 CMakeFiles/heart.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\heart.dir\build.make CMakeFiles/heart.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\heart.dir\build.make CMakeFiles/heart.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=5,6 "Built target heart"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=7,8 "Built target heart"
 .PHONY : CMakeFiles/heart.dir/all
 
 # Build rule for subdir invocation for target.
@@ -171,7 +206,7 @@ heart: CMakeFiles/heart.dir/rule
 # codegen rule for target.
 CMakeFiles/heart.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\heart.dir\build.make CMakeFiles/heart.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=5,6 "Finished codegen for target heart"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\IT3070_Project\build\CMakeFiles --progress-num=7,8 "Finished codegen for target heart"
 .PHONY : CMakeFiles/heart.dir/codegen
 
 # clean rule for target.

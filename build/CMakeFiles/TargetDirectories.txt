@@ -1,4 +1,5 @@
 D:/IT3070_Project/build/CMakeFiles/countdown.dir
+D:/IT3070_Project/build/CMakeFiles/dance.dir
 D:/IT3070_Project/build/CMakeFiles/duck.dir
 D:/IT3070_Project/build/CMakeFiles/heart.dir
 D:/IT3070_Project/build/CMakeFiles/edit_cache.dir

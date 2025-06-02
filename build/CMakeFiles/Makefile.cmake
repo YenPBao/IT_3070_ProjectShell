@@ -60,6 +60,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/countdown.dir/DependInfo.cmake"
+  "CMakeFiles/dance.dir/DependInfo.cmake"
   "CMakeFiles/duck.dir/DependInfo.cmake"
   "CMakeFiles/heart.dir/DependInfo.cmake"
   )
