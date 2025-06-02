@@ -6,130 +6,136 @@
 #include <vector>
 #include <unordered_set>
 
+using namespace std;
+namespace fs = std::filesystem;
+
 class DirectoryManager
 {
 public:
-    // Các lệnh hỗ trợ
-    static const std::unordered_set<std::string> supportedCommands;
+    inline static const unordered_set<string> supportedCommands = {
+        "copy_dir", "create_dir", "delete_dir", "move_dir", "list_tree"};
 
-    // Hàm lấy danh sách các lệnh hỗ trợ
-    static const std::unordered_set<std::string> &getSupportedCommands()
+    const unordered_set<string> &getSupportedCommands()
     {
         return supportedCommands;
     }
 
-    void copyDirectory(const std::vector<std::string> &args)
+    void copyDirectory(const vector<string> &args)
     {
         if (args.size() != 2)
         {
-            std::cout << "Usage: copy <source_path> <destination_path>" << std::endl;
+            cout << "Usage: copy <source_path> <destination_path>" << endl;
             return;
         }
-        std::filesystem::path sourcePath = args[0];
-        std::filesystem::path destinationPath = args[1];
-        if (!std::filesystem::exists(sourcePath) || !std::filesystem::is_directory(sourcePath))
+
+        fs::path src = args[0], dst = args[1];
+        if (!fs::exists(src) || !fs::is_directory(src))
         {
-            std::cout << "Source directory does not exist: " << sourcePath << std::endl;
+            cout << "Source directory does not exist: " << src << endl;
             return;
         }
-        if (std::filesystem::exists(destinationPath))
+        if (fs::exists(dst))
         {
-            std::cout << "Destination already exists: " << destinationPath << std::endl;
+            cout << "Destination already exists: " << dst << endl;
             return;
         }
-        std::filesystem::copy(sourcePath, destinationPath, std::filesystem::copy_options::recursive);
-        std::cout << "Directory copied from " << sourcePath << " to " << destinationPath << std::endl;
+
+        fs::copy(src, dst, fs::copy_options::recursive);
+        cout << "Directory copied from " << src << " to " << dst << endl;
     }
 
-    void createDirectory(const std::vector<std::string> &args)
+    void createDirectory(const vector<string> &args)
     {
         if (args.size() != 1)
         {
-            std::cout << "Usage: create <directory_path>" << std::endl;
+            cout << "Usage: create <directory_path>" << endl;
             return;
         }
-        std::filesystem::path dirPath = args[0];
-        if (std::filesystem::exists(dirPath))
+
+        fs::path dir = args[0];
+        if (fs::exists(dir))
         {
-            std::cout << "Directory already exists: " << dirPath << std::endl;
+            cout << "Directory already exists: " << dir << endl;
             return;
         }
-        std::filesystem::create_directories(dirPath);
-        std::cout << "Directory created: " << dirPath << std::endl;
+
+        fs::create_directories(dir);
+        cout << "Directory created: " << dir << endl;
     }
 
-    void deleteDirectory(const std::vector<std::string> &args)
+    void deleteDirectory(const vector<string> &args)
     {
         if (args.size() != 1)
         {
-            std::cout << "Usage: delete <directory_path>" << std::endl;
+            cout << "Usage: delete <directory_path>" << endl;
             return;
         }
-        std::filesystem::path dirPath = args[0];
-        if (!std::filesystem::exists(dirPath))
+
+        fs::path dir = args[0];
+        if (!fs::exists(dir))
         {
-            std::cout << "Directory does not exist: " << dirPath << std::endl;
+            cout << "Directory does not exist: " << dir << endl;
             return;
         }
-        std::filesystem::remove_all(dirPath);
-        std::cout << "Directory deleted: " << dirPath << std::endl;
+
+        fs::remove_all(dir);
+        cout << "Directory deleted: " << dir << endl;
     }
 
-    void listDirectoryTree(const std::vector<std::string> &args)
+    void listDirectoryTree(const vector<string> &args)
     {
         if (args.size() != 1)
         {
-            std::cout << "Usage: list_tree <directory_path>" << std::endl;
+            cout << "Usage: list_tree <directory_path>" << endl;
             return;
         }
-        std::filesystem::path dirPath = args[0];
-        if (!std::filesystem::exists(dirPath))
+
+        fs::path dir = args[0];
+        if (!fs::exists(dir))
         {
-            std::cout << "Directory does not exist: " << dirPath << std::endl;
+            cout << "Directory does not exist: " << dir << endl;
             return;
         }
-        std::cout << dirPath.string() << std::endl;
-        listDirectoryTreeHelper(dirPath, 1);
+
+        cout << dir.string() << endl;
+        listDirectoryTreeHelper(dir, 1);
     }
 
-    void moveDirectory(const std::vector<std::string> &args)
+    void moveDirectory(const vector<string> &args)
     {
         if (args.size() != 2)
         {
-            std::cout << "Usage: move <source_path> <destination_path>" << std::endl;
+            cout << "Usage: move <source_path> <destination_path>" << endl;
             return;
         }
-        std::filesystem::path sourcePath = args[0];
-        std::filesystem::path destinationPath = args[1];
-        if (!std::filesystem::exists(sourcePath))
+
+        fs::path src = args[0], dst = args[1];
+        if (!fs::exists(src))
         {
-            std::cout << "Source directory does not exist: " << sourcePath << std::endl;
+            cout << "Source directory does not exist: " << src << endl;
             return;
         }
-        std::filesystem::rename(sourcePath, destinationPath);
-        std::cout << "Directory moved from " << sourcePath << " to " << destinationPath << std::endl;
+
+        fs::rename(src, dst);
+        cout << "Directory moved from " << src << " to " << dst << endl;
     }
 
 private:
-    void listDirectoryTreeHelper(const std::filesystem::path &path, int level)
+    void listDirectoryTreeHelper(const fs::path &path, int level)
     {
-        if (!std::filesystem::exists(path) || !std::filesystem::is_directory(path))
-        {
+        if (!fs::exists(path) || !fs::is_directory(path))
             return;
-        }
 
-        for (const auto &entry : std::filesystem::directory_iterator(path))
+        for (const auto &entry : fs::directory_iterator(path))
         {
             for (int i = 0; i < level; ++i)
-            {
-                std::cout << "  ";
-            }
-            std::cout << entry.path().filename().string() << std::endl;
+                cout << "  ";
+            cout << entry.path().filename().string() << endl;
+
             if (entry.is_directory())
-            {
                 listDirectoryTreeHelper(entry, level + 1);
-            }
         }
     }
 };
+
 #endif // DIRECTORY_H

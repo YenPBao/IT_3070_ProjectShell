@@ -5,107 +5,113 @@
 #include <ctime>
 #include <windows.h>
 #include <unordered_set>
-#include<bits/stdc++.h>
-using namespace std; 
+#include <vector>
+#include <string>
+
+using namespace std;
+
 class SystemUtils
 {
 public:
-    // Danh sách các lệnh hỗ trợ
-    static const std::unordered_set<std::string> supportedCommands;
+    inline static const unordered_set<string> supportedCommands = {
+        "time",
+        "date",
+        "uptime",
+        "cpuinfo",
+        "meminfo",
+        "diskinfo",
+        "calculator"};
 
-    // Hàm lấy danh sách các lệnh hỗ trợ
-    static const std::unordered_set<std::string> &getSupportedCommands()
+    const unordered_set<string> &getSupportedCommands()
     {
         return supportedCommands;
     }
+
     void exitShell()
     {
-        std::cout << "Exiting Tiny Shell." << std::endl;
+        cout << "Exiting Tiny Shell." << endl;
         exit(0);
     }
 
-    void showSystemTime(const std::vector<std::string> &args)
+    void showSystemTime(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: time" << std::endl;
+            cerr << "Usage: time" << endl;
             return;
         }
 
-        std::time_t t = std::time(nullptr);
-        std::tm *now = std::localtime(&t);
+        time_t t = time(nullptr);
+        tm *now = localtime(&t);
 
-        std::cout << "Current system time: "
-                  << (now->tm_year + 1900) << '-'
-                  << (now->tm_mon + 1) << '-'
-                  << now->tm_mday << ' '
-                  << now->tm_hour << ':'
-                  << now->tm_min << ':'
-                  << now->tm_sec
-                  << std::endl;
+        cout << "Current system time: "
+             << (now->tm_year + 1900) << '-'
+             << (now->tm_mon + 1) << '-'
+             << now->tm_mday << ' '
+             << now->tm_hour << ':'
+             << now->tm_min << ':'
+             << now->tm_sec << endl;
     }
 
-    void showSystemDate(const std::vector<std::string> &args)
+    void showSystemDate(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: date" << std::endl;
+            cerr << "Usage: date" << endl;
             return;
         }
 
-        std::time_t t = std::time(nullptr);
-        std::tm *now = std::localtime(&t);
+        time_t t = time(nullptr);
+        tm *now = localtime(&t);
 
-        std::cout << "Current system date: "
-                  << (now->tm_year + 1900) << '-'
-                  << (now->tm_mon + 1) << '-'
-                  << now->tm_mday
-                  << std::endl;
+        cout << "Current system date: "
+             << (now->tm_year + 1900) << '-'
+             << (now->tm_mon + 1) << '-'
+             << now->tm_mday << endl;
     }
 
-    void showSystemUptime(const std::vector<std::string> &args)
+    void showSystemUptime(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: uptime" << std::endl;
+            cerr << "Usage: uptime" << endl;
             return;
         }
 
-        DWORD uptime = GetTickCount64() / 1000; // Get system uptime in seconds
+        DWORD uptime = GetTickCount64() / 1000;
         DWORD seconds = uptime % 60;
         DWORD minutes = (uptime / 60) % 60;
         DWORD hours = (uptime / 3600) % 24;
         DWORD days = uptime / 86400;
 
-        std::cout << "System uptime: "
-                  << days << " days, "
-                  << hours << " hours, "
-                  << minutes << " minutes, "
-                  << seconds << " seconds"
-                  << std::endl;
+        cout << "System uptime: "
+             << days << " days, "
+             << hours << " hours, "
+             << minutes << " minutes, "
+             << seconds << " seconds" << endl;
     }
 
-    void showCPUInfo(const std::vector<std::string> &args)
+    void showCPUInfo(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: cpuinfo" << std::endl;
+            cerr << "Usage: cpuinfo" << endl;
             return;
         }
 
         SYSTEM_INFO sysInfo;
         GetSystemInfo(&sysInfo);
 
-        std::cout << "CPU Information:" << std::endl;
-        std::cout << "Number of processors: " << sysInfo.dwNumberOfProcessors << std::endl;
-        std::cout << "Processor type: " << sysInfo.dwProcessorType << std::endl;
+        cout << "CPU Information:" << endl;
+        cout << "Number of processors: " << sysInfo.dwNumberOfProcessors << endl;
+        cout << "Processor type: " << sysInfo.dwProcessorType << endl;
     }
 
-    void showMemoryInfo(const std::vector<std::string> &args)
+    void showMemoryInfo(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: meminfo" << std::endl;
+            cerr << "Usage: meminfo" << endl;
             return;
         }
 
@@ -113,41 +119,41 @@ public:
         statex.dwLength = sizeof(statex);
         GlobalMemoryStatusEx(&statex);
 
-        std::cout << "Memory Information:" << std::endl;
-        std::cout << "Total physical memory: " << statex.ullTotalPhys / (1024 * 1024) << " MB" << std::endl;
-        std::cout << "Available physical memory: " << statex.ullAvailPhys / (1024 * 1024) << " MB" << std::endl;
-        std::cout << "Total virtual memory: " << statex.ullTotalPageFile / (1024 * 1024) << " MB" << std::endl;
-        std::cout << "Available virtual memory: " << statex.ullAvailPageFile / (1024 * 1024) << " MB" << std::endl;
+        cout << "Memory Information:" << endl;
+        cout << "Total physical memory: " << statex.ullTotalPhys / (1024 * 1024) << " MB" << endl;
+        cout << "Available physical memory: " << statex.ullAvailPhys / (1024 * 1024) << " MB" << endl;
+        cout << "Total virtual memory: " << statex.ullTotalPageFile / (1024 * 1024) << " MB" << endl;
+        cout << "Available virtual memory: " << statex.ullAvailPageFile / (1024 * 1024) << " MB" << endl;
     }
 
-    void showDiskInfo(const std::vector<std::string> &args)
+    void showDiskInfo(const vector<string> &args)
     {
         if (args.size() != 1)
         {
-            std::cerr << "Usage: diskinfo <drive_letter>" << std::endl;
+            cerr << "Usage: diskinfo <drive_letter>" << endl;
             return;
         }
 
-        std::string drive = args[0] + ":\\";
-        ULARGE_INTEGER freeBytesAvailableToCaller, totalNumberOfBytes, totalNumberOfFreeBytes;
+        string drive = args[0] + ":\\";
+        ULARGE_INTEGER avail, total, free;
 
-        if (GetDiskFreeSpaceExA(drive.c_str(), &freeBytesAvailableToCaller, &totalNumberOfBytes, &totalNumberOfFreeBytes))
+        if (GetDiskFreeSpaceExA(drive.c_str(), &avail, &total, &free))
         {
-            std::cout << "Disk Information for drive " << drive << ":" << std::endl;
-            std::cout << "Total space: " << totalNumberOfBytes.QuadPart / (1024 * 1024 * 1024) << " GB" << std::endl;
-            std::cout << "Free space: " << totalNumberOfFreeBytes.QuadPart / (1024 * 1024 * 1024) << " GB" << std::endl;
+            cout << "Disk Information for drive " << drive << ":" << endl;
+            cout << "Total space: " << total.QuadPart / (1024 * 1024 * 1024) << " GB" << endl;
+            cout << "Free space: " << free.QuadPart / (1024 * 1024 * 1024) << " GB" << endl;
         }
         else
         {
-            std::cerr << "Failed to get disk information: " << GetLastError() << std::endl;
+            cerr << "Failed to get disk information: " << GetLastError() << endl;
         }
     }
 
-    void showCalculator(const std::vector<std::string> &args)
+    void showCalculator(const vector<string> &args)
     {
         if (!args.empty())
         {
-            std::cerr << "Usage: calculator" << std::endl;
+            cerr << "Usage: calculator" << endl;
             return;
         }
 
@@ -156,7 +162,7 @@ public:
 
         if (!CreateProcess(TEXT("C:\\Windows\\System32\\calc.exe"), NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
         {
-            std::cerr << "Failed to start calculator: " << GetLastError() << std::endl;
+            cerr << "Failed to start calculator: " << GetLastError() << endl;
             return;
         }
 
@@ -164,14 +170,5 @@ public:
         CloseHandle(pi.hThread);
     }
 };
-
-const std::unordered_set<std::string> SystemUtils::supportedCommands = {
-    "time",
-    "date",
-    "uptime",
-    "cpuinfo",
-    "meminfo",
-    "diskinfo",
-    "calculator"};
 
 #endif // UTILS_H

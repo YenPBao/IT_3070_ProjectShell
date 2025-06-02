@@ -1,12 +1,18 @@
-#include <bits/stdc++.h>
-#include <windows.h>
-#include <thread>
+#include <iostream>
+#include <string>
+#include <vector>
 #include <sstream>
+#include <thread>
 #include <csignal>
+#include <windows.h>
+#include <filesystem>
 
 #include "Manager/manager.h"
-using namespace std;
 
+using namespace std;
+namespace fs = std::filesystem;
+
+// Khởi tạo các manager
 ProcessManager processManager;
 SystemUtils systemUtils;
 FileManager fileManager;
@@ -18,15 +24,15 @@ void printInitialInfo()
 {
     DWORD pid = GetCurrentProcessId();
 
-    cout<<"========================================"<<'\n';
-    cout<<"   ^-^  Wellcome To My Tiny Shell ^-^   "<<'\n';
-    cout<<"========================================"<<'\n';
-    cout<<"PID of Tiny Shell: " << pid <<'\n';
-    cout<<"Please type 'help' to see the list of availble commands."<<'\n';
-    cout<<"========================================"<<'\n';
+    cout << "========================================\n";
+    cout << "   ^-^  Welcome To My Tiny Shell ^-^   \n";
+    cout << "========================================\n";
+    cout << "PID of Tiny Shell: " << pid << '\n';
+    cout << "Please type 'help' to see the list of available commands.\n";
+    cout << "========================================\n";
 }
-// Hàm đọc input ra lệnh
 
+// Tách lệnh thành các tokens
 vector<string> splitInput(const string &input)
 {
     vector<string> tokens;
@@ -73,14 +79,10 @@ vector<string> splitInput(const string &input)
         tokens.push_back(token);
     }
 
-   
-    // if (!tokens.empty())
-    // {
-    //     tokens[0] = aliasManager.resolveAlias(tokens[0]);
-    // }
-
     return tokens;
 }
+
+// Hiệu ứng dancing đơn giản
 void dancing()
 {
     const char *dance[] = {
@@ -94,14 +96,14 @@ void dancing()
 
     for (int i = 0; i < numLines; ++i)
     {
-        std::cout << dance[i % numDanceMoves] << '\r';
-        std::this_thread::sleep_for(std::chrono::milliseconds(delayMilliseconds));
+        cout << dance[i % numDanceMoves] << '\r';
+        this_thread::sleep_for(chrono::milliseconds(delayMilliseconds));
     }
 }
-// Hàm thực thi lệnh 
-void executeCommand (const string &command, const vector <string> &args)
+
+// Hàm thực thi lệnh
+void executeCommand(const string &command, const vector<string> &args)
 {
-    // Quản lí tiện ích hệ thống
     if (command == "help")
     {
         showHelp(args);
@@ -134,7 +136,6 @@ void executeCommand (const string &command, const vector <string> &args)
     {
         systemUtils.showSystemDate(args);
     }
-    // Quản lí thư mục và file
     else if (command == "create_folder")
     {
         directoryManager.createDirectory(args);
@@ -187,7 +188,6 @@ void executeCommand (const string &command, const vector <string> &args)
     {
         runScript(args);
     }
-    // Quản lí tiến trình
     else if (command == "run_fg")
     {
         processManager.startProcessForeground(args);
@@ -220,8 +220,6 @@ void executeCommand (const string &command, const vector <string> &args)
     {
         processManager.startCountdownProcess();
     }
-
-    // Quản lí biến môi trường 
     else if (command == "path")
     {
         environmentManager.listAllEnv();
@@ -229,25 +227,16 @@ void executeCommand (const string &command, const vector <string> &args)
     else if (command == "add_path")
     {
         if (!args.empty())
-        {
             environmentManager.addToPath(args[0]);
-        }
         else
-        {
-            std::cout << "Usage: add_path <path>" << std::endl;
-        }
+            cout << "Usage: add_path <path>" << endl;
     }
-
     else if (command == "remove_path")
     {
         if (!args.empty())
-        {
             environmentManager.removeFromPath(args[0]);
-        }
         else
-        {
-            std::cout << "Usage: remove_path <path>" << std::endl;
-        }
+            cout << "Usage: remove_path <path>" << endl;
     }
     else if (command == "create_env")
     {
@@ -255,81 +244,59 @@ void executeCommand (const string &command, const vector <string> &args)
         {
             environmentManager.setEnv(args[0], args[2]);
         }
-        // Nếu không có tham số nào thì thông báo lỗi
         else
         {
-            std::cout << "Usage: set_env <variable> = <value> or set_env <variable> = <expression>" << std::endl;
+            cout << "Usage: set_env <variable> = <value>" << endl;
         }
     }
     else if (command == "kill_env")
     {
         if (!args.empty())
-        {
             environmentManager.unsetEnv(args[0]);
-        }
         else
-        {
-            std::cout << "Usage: unset_env <variable>" << std::endl;
-        }
+            cout << "Usage: unset_env <variable>" << endl;
     }
     else if (command == "print_env")
     {
         if (!args.empty())
-        {
             environmentManager.printEnv(args[0]);
-        }
         else
-        {
-            std::cout << "Usage: print_env <variable>" << std::endl;
-        }
+            cout << "Usage: print_env <variable>" << endl;
     }
     else
     {
-        cout<<"Unknown command: " << command<<'\n';
+        cout << "Unknown command: " << command << '\n';
     }
 }
 
-int main ()
+int main()
 {
-     //  In ra thông tin ban đầu khi shell khởi động
     printInitialInfo();
-
-     // Tải lịch sử từ file (nếu có)
-
-    std::string input;
 
     signal(SIGINT, SIG_IGN);
 
+    string input;
     while (true)
     {
-        cout << "tiny_shell" <<">"<< std::filesystem::current_path().string() << " >" ;
+        cout << "tiny_shell > " << fs::current_path().string() << " > ";
+        getline(cin, input);
 
-        std::getline(std::cin, input);
-
-        if (std::cin.fail() || std::cin.eof())
+        if (cin.fail() || cin.eof())
         {
-            std::cin.clear();
-            std::cout << std::endl;
+            cin.clear();
+            cout << endl;
             continue;
         }
 
-        // Ghi câu lệnh vào lịch sử
-       // commandHistory.add(input);
-
-        // splitInput để tách input thành các tokens
-        std::vector<std::string> tokens = splitInput(input);
-
+        vector<string> tokens = splitInput(input);
         if (tokens.empty())
             continue;
 
-        std::string command = tokens[0];
-
-        // Xóa lệnh ra khỏi tokens => tokens chỉ còn các tham số của lệnh
+        string command = tokens[0];
         tokens.erase(tokens.begin());
 
-        // Xử lý các lệnh còn lại
         executeCommand(command, tokens);
     }
-    return 0;
 
+    return 0;
 }

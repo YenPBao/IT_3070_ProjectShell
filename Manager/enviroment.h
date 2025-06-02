@@ -9,42 +9,45 @@
 #include <fstream>
 #include <unordered_set>
 
+using namespace std;
+
 class EnvironmentManager
 {
 public:
     // Các lệnh hỗ trợ
-    static const std::unordered_set<std::string> supportedCommands;
+    inline static const unordered_set<string> supportedCommands = {
+        "add_path", "remove_path", "print_env", "set_env", "kill_env", "list_env"};
 
     // Hàm lấy danh sách các lệnh hỗ trợ
-    static const std::unordered_set<std::string> &getSupportedCommands()
+    const unordered_set<string> &getSupportedCommands()
     {
         return supportedCommands;
     }
 
     // Hàm để thêm đường dẫn vào biến môi trường PATH
-    void addToPath(const std::string &path)
+    void addToPath(const string &path)
     {
-        std::string currentPath = getEnv("PATH");
-        if (currentPath.find(path) == std::string::npos)
+        string currentPath = getEnv("PATH");
+        if (currentPath.find(path) == string::npos)
         {
-            std::string newPath = currentPath + ";" + path;
+            string newPath = currentPath + ";" + path;
             setEnv("PATH", newPath);
-            std::cout << "Added " << path << " to PATH." << std::endl;
+            cout << "Added " << path << " to PATH." << endl;
         }
         else
         {
-            std::cout << path << " is already in PATH." << std::endl;
+            cout << path << " is already in PATH." << endl;
         }
     }
 
     // Hàm để xóa đường dẫn khỏi biến môi trường PATH
-    void removeFromPath(const std::string &path)
+    void removeFromPath(const string &path)
     {
-        std::string currentPath = getEnv("PATH");
+        string currentPath = getEnv("PATH");
         size_t pos = currentPath.find(path);
-        if (pos != std::string::npos)
+        if (pos != string::npos)
         {
-            std::string newPath;
+            string newPath;
             if (pos > 0 && currentPath[pos - 1] == ';')
             {
                 newPath = currentPath.substr(0, pos - 1) + currentPath.substr(pos + path.length());
@@ -58,55 +61,46 @@ public:
                 newPath = currentPath.substr(0, pos) + currentPath.substr(pos + path.length());
             }
             setEnv("PATH", newPath);
-            std::cout << "Removed " << path << " from PATH." << std::endl;
+            cout << "Removed " << path << " from PATH." << endl;
         }
         else
         {
-            std::cout << path << " is not in PATH." << std::endl;
+            cout << path << " is not in PATH." << endl;
         }
     }
 
     // Hàm để in ra giá trị của biến môi trường
-    void printEnv(const std::string &var)
+    void printEnv(const string &var)
     {
-        std::string value = getEnv(var);
+        string value = getEnv(var);
         if (!value.empty())
         {
-            std::cout << var << " = " << value << std::endl;
+            cout << var << " = " << value << endl;
         }
         else
         {
-            std::cout << var << " is not set." << std::endl;
+            cout << var << " is not set." << endl;
         }
     }
 
     // Hàm để thiết lập giá trị của biến môi trường
-    void setEnv(const std::string &var, const std::string &value)
+    void setEnv(const string &var, const string &value)
     {
-        // Kiểm tra xem value có phải là một biến môi trường khác hay không
-        std::string actualValue = getEnv(value);
-        if (!actualValue.empty())
-        {
-            _putenv_s(var.c_str(), actualValue.c_str());
-        }
-        else
-        {
-            _putenv_s(var.c_str(), value.c_str());
-        }
+        string actualValue = getEnv(value);
+        _putenv_s(var.c_str(), actualValue.empty() ? value.c_str() : actualValue.c_str());
     }
 
     // Hàm để xóa biến môi trường
-    void unsetEnv(const std::string &var)
+    void unsetEnv(const string &var)
     {
         _putenv_s(var.c_str(), "");
-        std::cout << "Unset variable " << var << std::endl;
+        cout << "Unset variable " << var << endl;
     }
 
     // Hàm để kiểm tra xem một đường dẫn có trong PATH hay không
-    bool isInPath(const std::string &path)
+    bool isInPath(const string &path)
     {
-        std::string currentPath = getEnv("PATH");
-        return currentPath.find(path) != std::string::npos;
+        return getEnv("PATH").find(path) != string::npos;
     }
 
     // Hàm để liệt kê tất cả các biến môi trường
@@ -115,19 +109,16 @@ public:
         extern char **environ;
         for (char **env = environ; *env; ++env)
         {
-            std::cout << *env << std::endl;
+            cout << *env << endl;
         }
     }
 
     // Hàm để lấy giá trị của biến môi trường
-    std::string getEnv(const std::string &var)
+    string getEnv(const string &var)
     {
         const char *value = getenv(var.c_str());
-        if (value)
-        {
-            return std::string(value);
-        }
-        return "";
+        return value ? string(value) : "";
     }
 };
+
 #endif // ENVIRONMENT_H

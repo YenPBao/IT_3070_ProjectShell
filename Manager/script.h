@@ -6,37 +6,40 @@
 #include <vector>
 #include <string>
 #include <filesystem>
-#include <cstdlib> // For std::getenv
+#include <cstdlib> // For getenv
 
-void executeCommand(const std::string &command, const std::vector<std::string> &args);
+using namespace std;
+namespace fs = std::filesystem;
 
-std::vector<std::string> splitInput(const std::string &input);
+void executeCommand(const string &command, const vector<string> &args);
 
-std::string resolvePath(const std::string &path)
+vector<string> splitInput(const string &input);
+
+string resolvePath(const string &path)
 {
     // Check if the path is absolute
-    if (std::filesystem::path(path).is_absolute())
+    if (fs::path(path).is_absolute())
     {
         return path;
     }
 
     // Check if the file exists in the current directory
-    if (std::filesystem::exists(path))
+    if (fs::exists(path))
     {
-        return std::filesystem::absolute(path).string();
+        return fs::absolute(path).string();
     }
 
     // Check in PATH environment variable
-    const char *pathEnv = std::getenv("PATH");
+    const char *pathEnv = getenv("PATH");
     if (pathEnv)
     {
-        std::vector<std::string> paths;
-        std::string pathEnvStr(pathEnv);
-        std::string delimiter = ";"; // Use ';' as the delimiter for Windows PATH
+        vector<string> paths;
+        string pathEnvStr(pathEnv);
+        string delimiter = ";"; // Use ';' as the delimiter for Windows PATH
 
         size_t pos = 0;
-        std::string token;
-        while ((pos = pathEnvStr.find(delimiter)) != std::string::npos)
+        string token;
+        while ((pos = pathEnvStr.find(delimiter)) != string::npos)
         {
             token = pathEnvStr.substr(0, pos);
             paths.push_back(token);
@@ -46,10 +49,10 @@ std::string resolvePath(const std::string &path)
 
         for (const auto &p : paths)
         {
-            std::filesystem::path filePath = std::filesystem::path(p) / path;
-            if (std::filesystem::exists(filePath))
+            fs::path filePath = fs::path(p) / path;
+            if (fs::exists(filePath))
             {
-                return std::filesystem::absolute(filePath).string();
+                return fs::absolute(filePath).string();
             }
         }
     }
@@ -58,29 +61,29 @@ std::string resolvePath(const std::string &path)
     return path;
 }
 
-void runScript(const std::vector<std::string> &args)
+void runScript(const vector<string> &args)
 {
     if (args.size() != 1)
     {
-        std::cout << "Usage: run <script_file_path>" << std::endl;
+        cout << "Usage: run <script_file_path>" << endl;
         return;
     }
 
-    std::string scriptPath = resolvePath(args[0]);
-    std::ifstream scriptFile(scriptPath);
+    string scriptPath = resolvePath(args[0]);
+    ifstream scriptFile(scriptPath);
     if (!scriptFile)
     {
-        std::cout << "Unable to open script file: " << scriptPath << std::endl;
+        cout << "Unable to open script file: " << scriptPath << endl;
         return;
     }
 
-    std::string line;
-    while (std::getline(scriptFile, line))
+    string line;
+    while (getline(scriptFile, line))
     {
-        std::vector<std::string> tokens = splitInput(line);
+        vector<string> tokens = splitInput(line);
         if (!tokens.empty())
         {
-            std::string command = tokens[0];
+            string command = tokens[0];
             tokens.erase(tokens.begin());
             executeCommand(command, tokens);
         }
